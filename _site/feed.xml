@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2019-12-25T18:06:29+06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">froghunter</title><subtitle>&quot;HACK THE PLANET&quot;.
+</subtitle><author><name>froghunter</name><email>froghunter.ctf@gmail.com</email></author><entry><title type="html">Bulldog 2</title><link href="http://localhost:4000/vulnhub/2019-12-20-bulldog2/" rel="alternate" type="text/html" title="Bulldog 2" /><published>2019-12-20T00:00:00+06:00</published><updated>2019-12-20T00:00:00+06:00</updated><id>http://localhost:4000/vulnhub/bulldog2</id><content type="html" xml:base="http://localhost:4000/vulnhub/2019-12-20-bulldog2/">&lt;blockquote&gt;
+  &lt;p&gt;Level: Advanced&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Hosted on Vulnhub, &lt;a href=&quot;https://www.vulnhub.com/entry/bulldog-2,246/&quot;&gt;Bulldog 2&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;start&quot;&gt;Start&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;h3 id=&quot;on-boot-up-leased-ip-address-was-displayed-on-the-machine-screen&quot;&gt;On boot-up leased IP address was displayed on the machine screen.&lt;/h3&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/RT1dwQV/Screenshot-at-2019-12-20-05-07-24.png&quot; alt=&quot;bootup&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;-enumeration-and-scanning&quot;&gt;# Enumeration and Scanning&lt;/h1&gt;
+&lt;p&gt;#### ** nmap ** scans were able to discover only a web application running on port 80.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;h2 id=&quot;nmap--sv--sc--oa-scan1-1921680135&quot;&gt;nmap -sV -sC -oA scan1 192.168.0.135&lt;/h2&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/jTqGjJn/bulldog-nmap.png&quot; alt=&quot;nmap-output&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;nmap&lt;/em&gt; scan show us  port 80 is open, so we can brows the ip address in the browser.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/Y25kBqX/bulldog-web-View.png&quot; alt=&quot;Browser view&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The main application was developed in AngularJS  &lt;em&gt;(Find in favicon of the application )&lt;/em&gt; .it has Login and Register tab on the homepage.After clicking on it &lt;strong&gt;a notice was given on that page stating that they are not accepting registration at this time due to security concerns.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/FVB7bfh/bulldogrege-view.png&quot; alt=&quot;Registation Images&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There was a login tab as well on the Homepage. It is available for sole attack surface.&lt;/p&gt;
+
+&lt;h2 id=&quot;dirb-and-gobuster&quot;&gt;dirb and gobuster&lt;/h2&gt;
+
+&lt;p&gt;I decided to look for other files and folders on the target application. for this purpose i used the &lt;strong&gt;dirb&lt;/strong&gt; tools.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/DGW5HBS/durb-screen-short.png&quot; alt=&quot;source code&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;dirb&lt;/strong&gt; result is not satisfactory and  also try &lt;strong&gt;gobuster&lt;/strong&gt; but i returning  “&lt;em&gt;200 ok&lt;/em&gt;”  to every request .So  decided to browse around and view the source code.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/drcnKCg/page-source-code.png&quot; alt=&quot;source code&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are some  &lt;strong&gt;javascript&lt;/strong&gt; bundled file and decided to look inside code of that file.I decided to start from  &lt;strong&gt;main.8b490782e52b9899e2a7.bundle.js&lt;/strong&gt; .&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/X5gVJbH/source-code.png&quot; alt=&quot;main js file&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;These minified files make analysis a little more difficult than usual, i decided to prettify them with Online JavaScript Beautifier (https://beautifier.io/)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/KqY32cG/buitefier-onlein.png&quot; alt=&quot;beautify&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After that i copy the code in Text-editor and try to analyse  the code and found some interesting point in that code.Registration is close but the &lt;strong&gt;registration function&lt;/strong&gt; stile in that code.and some &lt;strong&gt;token id&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/fMnTZch/registationlink.png&quot; alt=&quot;source code analyse&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/XDhj83j/reg-username-pass.png&quot; alt=&quot;username password&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So we found the registration url &lt;strong&gt;&lt;em&gt;(“/users/register”)&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;onRegisterSubmit&lt;/em&gt;&lt;/strong&gt; function. and also found &lt;strong&gt;&lt;em&gt;id_token (master_admin_user)&lt;/em&gt;&lt;/strong&gt; but don’t know what is doing. So i decided to make register on that application with &lt;strong&gt;burp suite&lt;/strong&gt;. Capture the login request and send it into the &lt;strong&gt;repeater&lt;/strong&gt; and modify the request and send to the server and get back success message on &lt;strong&gt;“User Registered”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/ygPxHNx/reg-uscess.png&quot; alt=&quot;request modify&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;login-with-new-user-credentials&quot;&gt;Login with New user credentials.&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/44C1w5Y/loginsucess.png&quot; alt=&quot;Login&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Using the &lt;strong&gt;&lt;em&gt;Burp suite&lt;/em&gt;&lt;/strong&gt; i was able to figure out that a JWT token was assigned to the logged in user and the privilege levels were &lt;strong&gt;&lt;em&gt;standard_user&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/QQ8cZc8/jwt-token.png&quot; alt=&quot;login jwt&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the source code i found &lt;strong&gt;&lt;em&gt;master_admin_user&lt;/em&gt;&lt;/strong&gt;, So i decided to edit JWT token and put &lt;strong&gt;&lt;em&gt;master_admin_user&lt;/em&gt;&lt;/strong&gt; auth_level .I search JWT on google and found JWT decoder website and modify the token.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/SP45wLb/jwt-token-encode.png&quot; alt=&quot;token&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After modifying this token i put it into the burp suite and forwarded the request and now i have new tab called 
+&lt;strong&gt;&lt;em&gt;Admin&lt;/em&gt;&lt;/strong&gt;
+&lt;img src=&quot;https://i.ibb.co/8mPGFYZ/now-admin.png&quot; alt=&quot;request forward&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/6PQdXf1/Cheese-Mon-23-Dec19-14-48.png&quot; alt=&quot;admin login option&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;command-injection&quot;&gt;Command injection&lt;/h2&gt;
+&lt;p&gt;Admin tab has another authentication and is possibly asking for admin credentials.There is hints that Link CLI tools.So background it may be a command line tools performing the authentication. So i send request to &lt;strong&gt;&lt;em&gt;Burp suite&lt;/em&gt;&lt;/strong&gt; and modify the password with &lt;strong&gt;&lt;em&gt;reverse shell&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/bFQ3kWr/shell.png&quot; alt=&quot;revershell&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And make a receiver with &lt;strong&gt;&lt;em&gt;netcat (nc)&lt;/em&gt;&lt;/strong&gt; to capture the connection of the reverse shell and I got the Shell&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/x7Jz3zx/shello-we-get.png&quot; alt=&quot;nc conncetion&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;privilege-escalation&quot;&gt;Privilege Escalation&lt;/h2&gt;
+
+&lt;p&gt;I found my ticket to privilege escalation during enumeration of this account.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/Mpc2h2b/Screenshot-at-2019-12-23-12-46-29.png&quot; alt=&quot;Shell&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Since we have write permissions to &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/passwd&lt;/code&gt;, let’s change the &lt;code class=&quot;highlighter-rouge&quot;&gt;root&lt;/code&gt; password to &lt;code class=&quot;highlighter-rouge&quot;&gt;root&lt;/code&gt;.So to append a new user with id as 0(userid 0 has root privileges), we need to provide a valid password hash in second column. Crypt function in Perl can be used to create password hashes in the compatible format. Crypt function takes the password and its salt as the arguments and returns a single password hash&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/ww70ZKH/password.png&quot; alt=&quot;password&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;appending new user with password &lt;strong&gt;&lt;em&gt;1234&lt;/em&gt;&lt;/strong&gt; with root privilege.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/YbjFKpC/passowes-add.png&quot; alt=&quot;adding password&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/6gCZFrZ/root-user.png&quot; alt=&quot;root previlige&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.ibb.co/WDvn8PX/flag.png&quot; alt=&quot;flag&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;This box was great!.It was a tricky and challenging box.Stay tuned for more CTF solutions! ‘Til then, keep trying on your own .&lt;/p&gt;</content><author><name>froghunter</name><email>froghunter.ctf@gmail.com</email></author><summary type="html">Level: Advanced</summary></entry></feed>

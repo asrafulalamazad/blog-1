@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en"><!--
+
+███████╗██████╗  ██████╗  ██████╗ ██╗  ██╗██╗   ██╗███╗   ██╗████████╗███████╗██████╗ 
+██╔════╝██╔══██╗██╔═══██╗██╔════╝ ██║  ██║██║   ██║████╗  ██║╚══██╔══╝██╔════╝██╔══██╗
+█████╗  ██████╔╝██║   ██║██║  ███╗███████║██║   ██║██╔██╗ ██║   ██║   █████╗  ██████╔╝
+██╔══╝  ██╔══██╗██║   ██║██║   ██║██╔══██║██║   ██║██║╚██╗██║   ██║   ██╔══╝  ██╔══██╗
+██║     ██║  ██║╚██████╔╝╚██████╔╝██║  ██║╚██████╔╝██║ ╚████║   ██║   ███████╗██║  ██║
+╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
+                                                                                      
+Powered by NightHawk
+-->
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+
+
+  
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Bulldog 2 | froghunter</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Bulldog 2" />
+<meta name="author" content="froghunter" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Bulldog 2 is an advanced challenge box,packing a combination of new and legacy attack vector. it is Designed by “Nick Frichette” . It is web application developed in angular.js to teach about application security." />
+<meta property="og:description" content="Bulldog 2 is an advanced challenge box,packing a combination of new and legacy attack vector. it is Designed by “Nick Frichette” . It is web application developed in angular.js to teach about application security." />
+<link rel="canonical" href="http://localhost:4000/vulnhub/2019-12-20-bulldog2/" />
+<meta property="og:url" content="http://localhost:4000/vulnhub/2019-12-20-bulldog2/" />
+<meta property="og:site_name" content="froghunter" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-20T00:00:00+06:00" />
+<script type="application/ld+json">
+{"headline":"Bulldog 2","dateModified":"2019-12-20T00:00:00+06:00","datePublished":"2019-12-20T00:00:00+06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/vulnhub/2019-12-20-bulldog2/"},"url":"http://localhost:4000/vulnhub/2019-12-20-bulldog2/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/icons/icon_pic.jpg"},"name":"froghunter"},"author":{"@type":"Person","name":"froghunter"},"description":"Bulldog 2 is an advanced challenge box,packing a combination of new and legacy attack vector. it is Designed by “Nick Frichette” . It is web application developed in angular.js to teach about application security.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  
+
+  
+    <meta name="keywords" content="ctf,hacking,progamming,malware">
+  
+
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="froghunter">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<meta name="application-name" content="froghunter">
+<meta name="msapplication-config" content="/assets/ieconfig.xml">
+
+
+<meta name="theme-color" content="rgb(25,55,71)">
+
+
+<meta name="generator" content="Hydejack v8.5.2" />
+
+<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="froghunter" />
+
+
+
+<link rel="alternate" href="http://localhost:4000/vulnhub/2019-12-20-bulldog2/" hreflang="en">
+
+<link rel="shortcut icon" href="/assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/icons/icon.png">
+
+<link rel="manifest" href="/assets/manifest.json">
+
+
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+
+
+
+<link rel="dns-prefetch" href="/" id="_baseURL">
+<link rel="dns-prefetch" href="/sw.js" id="_hrefSW">
+<link rel="dns-prefetch" href="/assets/bower_components/katex/dist/katex.min.js" id="_hrefKatexJS">
+<link rel="dns-prefetch" href="/assets/bower_components/katex/dist/katex.min.css" id="_hrefKatexCSS">
+<link rel="dns-prefetch" href="/assets/bower_components/katex/dist/contrib/copy-tex.min.js" id="_hrefKatexCopyJS">
+<link rel="dns-prefetch" href="/assets/bower_components/katex/dist/contrib/copy-tex.min.css" id="_hrefKatexCopyCSS">
+<link rel="dns-prefetch" href="/assets/img/swipe.svg" id="_hrefSwipeSVG">
+
+
+
+
+<script>
+!function(e,t){"use strict";function n(e,t,n,o){e.addEventListener?e.addEventListener(t,n,o):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n}e.loadJS=function(e,o){var r=t.createElement("script");r.src=e,o&&n(r,"load",o,{once:!0});var a=t.scripts[0];return a.parentNode.insertBefore(r,a),r},e._loaded=!1,e.loadJSDeferred=function(o,r){function a(){e._loaded=!0,r&&n(c,"load",r,{once:!0});var o=t.scripts[0];o.parentNode.insertBefore(c,o)}var c=t.createElement("script");return c.src=o,e._loaded?a():n(e,"load",a,{once:!0}),c},e.setRel=e.setRelStylesheet=function(e){function o(){this.rel="stylesheet"}n(t.getElementById(e),"load",o,{once:!0})}}(window,document);
+;
+!function(a){"use strict";var b=function(b,c,d){function e(a){return h.body?a():void setTimeout(function(){e(a)})}function f(){i.addEventListener&&i.removeEventListener("load",f),i.media=d||"all"}var g,h=a.document,i=h.createElement("link");if(c)g=c;else{var j=(h.body||h.getElementsByTagName("head")[0]).childNodes;g=j[j.length-1]}var k=h.styleSheets;i.rel="stylesheet",i.href=b,i.media="only x",e(function(){g.parentNode.insertBefore(i,c?g:g.nextSibling)});var l=function(a){for(var b=i.href,c=k.length;c--;)if(k[c].href===b)return a();setTimeout(function(){l(a)})};return i.addEventListener&&i.addEventListener("load",f),i.onloadcssdefined=l,l(f),i};"undefined"!=typeof exports?exports.loadCSS=b:a.loadCSS=b}("undefined"!=typeof global?global:this);
+;
+!function(a){if(a.loadCSS){var b=loadCSS.relpreload={};if(b.support=function(){try{return a.document.createElement("link").relList.supports("preload")}catch(b){return!1}},b.poly=function(){for(var b=a.document.getElementsByTagName("link"),c=0;c<b.length;c++){var d=b[c];"preload"===d.rel&&"style"===d.getAttribute("as")&&(a.loadCSS(d.href,d,d.getAttribute("media")),d.rel=null)}},!b.support()){b.poly();var c=a.setInterval(b.poly,300);a.addEventListener&&a.addEventListener("load",function(){b.poly(),a.clearInterval(c)}),a.attachEvent&&a.attachEvent("onload",function(){a.clearInterval(c)})}}}(this);
+;
+!function(w, d) {
+  w._noPushState = false;
+  w._noDrawer = false;
+}(window, document);
+</script>
+
+<!--[if gt IE 8]><!---->
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/assets/css/hydejack-8.5.2.css">
+  <link rel="stylesheet" href="/assets/icomoon/style.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400|Noto+Sans:400,400i,700,700i&display=swap">
+  
+
+
+  <style id="_pageStyle">
+
+.content a:not(.btn){color:#4fb1ba;border-color:rgba(79,177,186,0.2)}.content a:not(.btn):hover{border-color:#4fb1ba}:focus{outline-color:#4fb1ba !important}.btn-primary{color:#fff;background-color:#4fb1ba;border-color:#4fb1ba}.btn-primary:focus,.btn-primary.focus,.form-control:focus,.form-control.focus{box-shadow:0 0 0 3px rgba(79,177,186,0.5)}.btn-primary:hover,.btn-primary.hover{color:#fff;background-color:#409ba3;border-color:#409ba3}.btn-primary:disabled,.btn-primary.disabled{color:#fff;background-color:#4fb1ba;border-color:#4fb1ba}.btn-primary:active,.btn-primary.active{color:#fff;background-color:#409ba3;border-color:#409ba3}::selection{color:#fff;background:#4fb1ba}::-moz-selection{color:#fff;background:#4fb1ba}
+
+</style>
+
+
+<!--<![endif]-->
+
+
+
+
+</head>
+
+<body class="no-color-transition">
+  <div id="_navbar" class="navbar fixed-top">
+  <div class="content">
+    <div class="nav-btn-bar">
+      <span class="sr-only">Jump to:</span>
+      <a id="_menu" class="nav-btn no-hover fl" href="#_navigation">
+        <span class="sr-only">Navigation</span>
+        <span class="icon-menu"></span>
+      </a>
+      <!-- <a id="_search" class="nav-btn no-hover fl" href="#_search">
+        <span class="sr-only">Search</span>
+        <span class="icon-search"></span>
+      </a>
+      <form action="https://duckduckgo.com/" method="GET">
+        <div class="form-group fr">
+          <label class="sr-only" for="_search">Search</label>
+          <input id="_search" name="q" class="form-control" type="search" />
+        </div>
+        <input type="hidden" name="q" value="site:hydejack.com" />
+        <input type="hidden" name="ia" value="web" />
+      </form> -->
+    </div>
+  </div>
+</div>
+<hr class="sr-only" hidden />
+
+
+<hy-push-state
+  replace-ids="_main"
+  link-selector="a[href]:not([href*='/assets/']):not(.external):not(.no-push-state)"
+  duration="250"
+  script-selector="script:not([type^='math/tex'])"
+  prefetch
+>
+  
+    <main
+  id="_main"
+  class="content fade-in layout-post"
+  role="main"
+  data-color="rgb(79,177,186)"
+  data-theme-color="rgb(25,55,71)"
+  
+    data-image="/assets/img/background.jpg"
+    data-overlay
+  
+  >
+  
+
+
+
+
+<article id="post-vulnhub-bulldog2" class="page post mb6" role="article">
+  <header>
+    <h1 class="post-title">
+      
+        Bulldog 2
+      
+    </h1>
+
+    <p class="post-date heading">
+      
+      <time datetime="2019-12-20T00:00:00+06:00">20 Dec 2019</time>
+      
+      
+      
+      
+      
+
+
+
+
+
+
+
+
+
+in <a href="/vulnhub/" class="flip-title">VULNHUB</a>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+    </p>
+
+    
+    
+
+    
+
+
+
+  
+    <p class="message" >
+      <strong>Bulldog 2</strong> is an advanced challenge box,packing a combination of new and legacy attack vector. it is Designed by “Nick Frichette” . It is web application  developed in <strong>angular.js</strong>  to teach about application security.
+
+    </p>
+  
+
+
+  </header>
+
+  
+    <blockquote>
+  <p>Level: Advanced</p>
+</blockquote>
+
+<blockquote>
+  <p>Hosted on Vulnhub, <a href="https://www.vulnhub.com/entry/bulldog-2,246/">Bulldog 2</a></p>
+</blockquote>
+
+<h1 id="start">Start</h1>
+<blockquote>
+  <h3 id="on-boot-up-leased-ip-address-was-displayed-on-the-machine-screen">On boot-up leased IP address was displayed on the machine screen.</h3>
+</blockquote>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/RT1dwQV/Screenshot-at-2019-12-20-05-07-24.png" alt="bootup">
+  <noscript><img data-ignore src="https://i.ibb.co/RT1dwQV/Screenshot-at-2019-12-20-05-07-24.png" alt="bootup"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<h1 id="-enumeration-and-scanning"># Enumeration and Scanning</h1>
+<p>#### ** nmap ** scans were able to discover only a web application running on port 80.</p>
+
+<blockquote>
+  <h2 id="nmap--sv--sc--oa-scan1-1921680135">nmap -sV -sC -oA scan1 192.168.0.135</h2>
+</blockquote>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/jTqGjJn/bulldog-nmap.png" alt="nmap-output">
+  <noscript><img data-ignore src="https://i.ibb.co/jTqGjJn/bulldog-nmap.png" alt="nmap-output"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p><em>nmap</em> scan show us  port 80 is open, so we can brows the ip address in the browser.</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/Y25kBqX/bulldog-web-View.png" alt="Browser view">
+  <noscript><img data-ignore src="https://i.ibb.co/Y25kBqX/bulldog-web-View.png" alt="Browser view"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>The main application was developed in AngularJS  <em>(Find in favicon of the application )</em> .it has Login and Register tab on the homepage.After clicking on it <strong>a notice was given on that page stating that they are not accepting registration at this time due to security concerns.</strong></p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/FVB7bfh/bulldogrege-view.png" alt="Registation Images">
+  <noscript><img data-ignore src="https://i.ibb.co/FVB7bfh/bulldogrege-view.png" alt="Registation Images"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>There was a login tab as well on the Homepage. It is available for sole attack surface.</p>
+
+<h2 id="dirb-and-gobuster">dirb and gobuster</h2>
+
+<p>I decided to look for other files and folders on the target application. for this purpose i used the <strong>dirb</strong> tools.</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/DGW5HBS/durb-screen-short.png" alt="source code">
+  <noscript><img data-ignore src="https://i.ibb.co/DGW5HBS/durb-screen-short.png" alt="source code"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p><strong>dirb</strong> result is not satisfactory and  also try <strong>gobuster</strong> but i returning  “<em>200 ok</em>”  to every request .So  decided to browse around and view the source code.</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/drcnKCg/page-source-code.png" alt="source code">
+  <noscript><img data-ignore src="https://i.ibb.co/drcnKCg/page-source-code.png" alt="source code"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>There are some  <strong>javascript</strong> bundled file and decided to look inside code of that file.I decided to start from  <strong>main.8b490782e52b9899e2a7.bundle.js</strong> .</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/X5gVJbH/source-code.png" alt="main js file">
+  <noscript><img data-ignore src="https://i.ibb.co/X5gVJbH/source-code.png" alt="main js file"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>These minified files make analysis a little more difficult than usual, i decided to prettify them with Online JavaScript Beautifier (https://beautifier.io/)</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/KqY32cG/buitefier-onlein.png" alt="beautify">
+  <noscript><img data-ignore src="https://i.ibb.co/KqY32cG/buitefier-onlein.png" alt="beautify"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>After that i copy the code in Text-editor and try to analyse  the code and found some interesting point in that code.Registration is close but the <strong>registration function</strong> stile in that code.and some <strong>token id</strong></p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/fMnTZch/registationlink.png" alt="source code analyse">
+  <noscript><img data-ignore src="https://i.ibb.co/fMnTZch/registationlink.png" alt="source code analyse"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/XDhj83j/reg-username-pass.png" alt="username password">
+  <noscript><img data-ignore src="https://i.ibb.co/XDhj83j/reg-username-pass.png" alt="username password"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>So we found the registration url <strong><em>(“/users/register”)</em></strong> and <strong><em>onRegisterSubmit</em></strong> function. and also found <strong><em>id_token (master_admin_user)</em></strong> but don’t know what is doing. So i decided to make register on that application with <strong>burp suite</strong>. Capture the login request and send it into the <strong>repeater</strong> and modify the request and send to the server and get back success message on <strong>“User Registered”</strong></p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/ygPxHNx/reg-uscess.png" alt="request modify">
+  <noscript><img data-ignore src="https://i.ibb.co/ygPxHNx/reg-uscess.png" alt="request modify"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<h2 id="login-with-new-user-credentials">Login with New user credentials.</h2>
+<p><hy-img root-margin="512px" src="https://i.ibb.co/44C1w5Y/loginsucess.png" alt="Login">
+  <noscript><img data-ignore src="https://i.ibb.co/44C1w5Y/loginsucess.png" alt="Login"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>Using the <strong><em>Burp suite</em></strong> i was able to figure out that a JWT token was assigned to the logged in user and the privilege levels were <strong><em>standard_user</em></strong></p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/QQ8cZc8/jwt-token.png" alt="login jwt">
+  <noscript><img data-ignore src="https://i.ibb.co/QQ8cZc8/jwt-token.png" alt="login jwt"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>In the source code i found <strong><em>master_admin_user</em></strong>, So i decided to edit JWT token and put <strong><em>master_admin_user</em></strong> auth_level .I search JWT on google and found JWT decoder website and modify the token.</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/SP45wLb/jwt-token-encode.png" alt="token">
+  <noscript><img data-ignore src="https://i.ibb.co/SP45wLb/jwt-token-encode.png" alt="token"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>After modifying this token i put it into the burp suite and forwarded the request and now i have new tab called 
+<strong><em>Admin</em></strong>
+<hy-img root-margin="512px" src="https://i.ibb.co/8mPGFYZ/now-admin.png" alt="request forward">
+  <noscript><img data-ignore src="https://i.ibb.co/8mPGFYZ/now-admin.png" alt="request forward"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/6PQdXf1/Cheese-Mon-23-Dec19-14-48.png" alt="admin login option">
+  <noscript><img data-ignore src="https://i.ibb.co/6PQdXf1/Cheese-Mon-23-Dec19-14-48.png" alt="admin login option"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<h2 id="command-injection">Command injection</h2>
+<p>Admin tab has another authentication and is possibly asking for admin credentials.There is hints that Link CLI tools.So background it may be a command line tools performing the authentication. So i send request to <strong><em>Burp suite</em></strong> and modify the password with <strong><em>reverse shell</em></strong></p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/bFQ3kWr/shell.png" alt="revershell">
+  <noscript><img data-ignore src="https://i.ibb.co/bFQ3kWr/shell.png" alt="revershell"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>And make a receiver with <strong><em>netcat (nc)</em></strong> to capture the connection of the reverse shell and I got the Shell</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/x7Jz3zx/shello-we-get.png" alt="nc conncetion">
+  <noscript><img data-ignore src="https://i.ibb.co/x7Jz3zx/shello-we-get.png" alt="nc conncetion"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+
+<p>I found my ticket to privilege escalation during enumeration of this account.</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/Mpc2h2b/Screenshot-at-2019-12-23-12-46-29.png" alt="Shell">
+  <noscript><img data-ignore src="https://i.ibb.co/Mpc2h2b/Screenshot-at-2019-12-23-12-46-29.png" alt="Shell"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>Since we have write permissions to <code class="highlighter-rouge">/etc/passwd</code>, let’s change the <code class="highlighter-rouge">root</code> password to <code class="highlighter-rouge">root</code>.So to append a new user with id as 0(userid 0 has root privileges), we need to provide a valid password hash in second column. Crypt function in Perl can be used to create password hashes in the compatible format. Crypt function takes the password and its salt as the arguments and returns a single password hash</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/ww70ZKH/password.png" alt="password">
+  <noscript><img data-ignore src="https://i.ibb.co/ww70ZKH/password.png" alt="password"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p>appending new user with password <strong><em>1234</em></strong> with root privilege.</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/YbjFKpC/passowes-add.png" alt="adding password">
+  <noscript><img data-ignore src="https://i.ibb.co/YbjFKpC/passowes-add.png" alt="adding password"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/6gCZFrZ/root-user.png" alt="root previlige">
+  <noscript><img data-ignore src="https://i.ibb.co/6gCZFrZ/root-user.png" alt="root previlige"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<p><hy-img root-margin="512px" src="https://i.ibb.co/WDvn8PX/flag.png" alt="flag">
+  <noscript><img data-ignore src="https://i.ibb.co/WDvn8PX/flag.png" alt="flag"/></noscript>
+  <span slot="loading" class="loading"><span class="icon-cog"></span></span>
+</hy-img>
+</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>This box was great!.It was a tricky and challenging box.Stay tuned for more CTF solutions! ‘Til then, keep trying on your own .</p>
+
+  
+</article>
+
+
+<hr class="dingbat related" />
+
+
+
+
+  
+     
+
+
+  <aside class="about related mt4 mb4" role="complementary">
+    
+    
+
+<div class="author mt4">
+  
+
+  
+    
+
+
+  <hy-img
+    
+    src="https://i.ibb.co/zH1ZFJr/Screenshot-20190831-203254.png"
+    class="avatar"
+    alt="froghunter"
+    srcset="https://i.ibb.co/zH1ZFJr/Screenshot-20190831-203254.png 1x,https://i.ibb.co/zH1ZFJr/Screenshot-20190831-203254.png 2x"
+    
+  
+    
+    root-margin="512px"
+  >
+    <noscript><img data-ignore 
+    src="https://i.ibb.co/zH1ZFJr/Screenshot-20190831-203254.png"
+    class="avatar"
+    alt="froghunter"
+    srcset="https://i.ibb.co/zH1ZFJr/Screenshot-20190831-203254.png 1x,https://i.ibb.co/zH1ZFJr/Screenshot-20190831-203254.png 2x"
+    
+  /></noscript>
+    <span class="loading" slot="loading" hidden>
+      <span class="icon-cog"></span>
+    </span>
+  </hy-img>
+
+
+  
+
+  
+  
+  <h2  class="page-title hr">
+    About
+  </h2>
+
+  <p>Hello, I’m a security professional known as <strong><em>froghunter</em></strong> who play CTF’s and write about it. 
+Like to play with hardware and also write <em>exploit</em> and do vulnerability research 
+Here is mu resume if you want to see…..</p>
+
+<p><a href="https://github.com/qwtel/hydejack-starter-kit/archive/v8.1.1.zip">Resume pdf</a>
+– or –
+<a href="https://app.simplegoods.co/i/NATYVLYT">Resume</a></p>
+
+
+
+  <div class="sidebar-social">
+    <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/minjurul" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/dev-frog" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:froghunter.ctf@gmail.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://facebook.com/minjurahman" title="Facebook" class="no-mark-external">
+      <span class="icon-facebook"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+  </div>
+</div>
+
+  </aside>
+
+
+  
+
+  
+  
+
+  
+    
+
+
+
+
+  
+
+  
+  
+
+
+  
+
+  
+<footer role="contentinfo">
+  <hr/>
+  
+    <p><small class="copyright">© 2019. All rights reserved.
+</small></p>
+  
+  
+  <p><small>Powered by <a class="external" href="https://nighthawk.com/">NightHawk</a> 
+  <hr class="sr-only"/>
+</footer>
+
+
+</main>
+
+    <hy-drawer
+  class=""
+  align="left"
+  threshold="10"
+  touch-events
+  prevent-default
+>
+  <header id="_sidebar" class="sidebar" role="banner">
+    
+    <div class="sidebar-bg sidebar-overlay" style="background-color:rgb(25,55,71);background-image:url(/assets/img/background.jpg)"></div>
+
+    <div class="sidebar-sticky">
+      <div class="sidebar-about">
+        
+          <a class="no-hover" href="/" tabindex="-1">
+            <img src="/assets/icons/icon_pic.jpg" class="avatar" alt="froghunter" data-ignore />
+          </a>
+        
+        <h2 class="h1"><a href="/">froghunter</a></h2>
+        
+        
+          <p class="">
+            “HACK THE PLANET”
+
+          </p>
+        
+      </div>
+
+      <nav class="sidebar-nav heading" role="navigation">
+        <span class="sr-only">Navigation:</span>
+<ul>
+  
+    
+      
+      <li>
+        <a
+          id="_navigation"
+          href="/hackthebox/"
+          class="sidebar-nav-item"
+          
+        >
+          Hackthebox
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/ctf/"
+          class="sidebar-nav-item"
+          
+        >
+          CTF
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/vulnhub/"
+          class="sidebar-nav-item active"
+          
+        >
+          Vlunhub
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/others/"
+          class="sidebar-nav-item"
+          
+        >
+          Others
+        </a>
+      </li>
+    
+      
+      <li>
+        <a
+          
+          href="/about/"
+          class="sidebar-nav-item"
+          
+        >
+          About
+        </a>
+      </li>
+    
+  
+</ul>
+
+      </nav>
+
+      
+
+      <div class="sidebar-social">
+        <span class="sr-only">Social:</span>
+<ul>
+  
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://twitter.com/minjurul" title="Twitter" class="no-mark-external">
+      <span class="icon-twitter"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://github.com/dev-frog" title="GitHub" class="no-mark-external">
+      <span class="icon-github"></span>
+      <span class="sr-only">GitHub</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="mailto:froghunter.ctf@gmail.com" title="Email" class="no-mark-external">
+      <span class="icon-mail"></span>
+      <span class="sr-only">Email</span>
+    </a>
+  </li>
+
+
+    
+      
+
+
+
+  
+
+  
+  
+  
+  
+
+  
+
+  
+
+  <li>
+    <a href="https://facebook.com/minjurahman" title="Facebook" class="no-mark-external">
+      <span class="icon-facebook"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  </li>
+
+
+    
+  
+</ul>
+
+      </div>
+    </div>
+  </header>
+</hy-drawer>
+<hr class="sr-only" hidden />
+
+  
+</hy-push-state>
+
+<!--[if gt IE 10]><!---->
+
+  <script nomodule>!function(){var e=document.createElement("script");if(!("noModule"in e)&&"onbeforeload"in e){var t=!1;document.addEventListener("beforeload",function(n){if(n.target===e)t=!0;else if(!n.target.hasAttribute("nomodule")||!t)return;n.preventDefault()},!0),e.type="module",e.src=".",document.head.appendChild(e),e.remove()}}();
+</script>
+  <script type="module" src="/assets/js/hydejack-8.5.2.js"></script>
+  <script nomodule src="/assets/js/hydejack-legacy-8.5.2.js" defer></script>
+  
+
+  
+
+
+<!--<![endif]-->
+
+
+
+
+
+<h2 class="sr-only" hidden>Templates (for web app):</h2>
+
+<template id="_animation-template" hidden>
+  <div class="animation-main fixed-top">
+    <div class="content">
+      <div class="page"></div>
+    </div>
+  </div>
+</template>
+
+<template id="_loading-template" hidden>
+  <div class="loading nav-btn fr">
+    <span class="sr-only">Loading…</span>
+    <span class="icon-cog"></span>
+  </div>
+</template>
+
+<template id="_error-template" hidden>
+  <div class="page">
+    <h1 class="page-title">Error</h1>
+    
+    
+    <p class="lead">
+      Sorry, an error occurred while loading <a class="this-link" href=""></a>.
+
+    </p>
+  </div>
+</template>
+
+<template id="_forward-template" hidden>
+  <button id="_forward" class="forward nav-btn no-hover fl">
+    <span class="sr-only">Forward</span>
+    <span class="icon-arrow-right2"></span>
+  </button>
+</template>
+
+<template id="_back-template" hidden>
+  <button id="_back" class="back nav-btn no-hover fl">
+    <span class="sr-only">Back</span>
+    <span class="icon-arrow-left2"></span>
+  </button>
+</template>
+
+<template id="_permalink-template" hidden>
+  <a href="#" class="permalink">
+    <span class="sr-only">Permalink</span>
+    <span class="icon-link"></span>
+  </a>
+</template>
+
+
+
+
+</body>
+</html>

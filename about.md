@@ -12,18 +12,16 @@ Hello, I'm a security professional known as ***froghunter*** who play CTF's and 
 ![Screenshot](/assets/img/about/about_img.jpeg)
 
 
-***Email*** : _froghunter.ctf@gmail.com_
+>***Email*** : _froghunter.ctf@gmail.com_
 
- > Here is my resume if you want to see.....
-    [Resume pdf][download]
+> Here is my resume if you want to see..... [Resume pdf][download]
    
-    [download]: https://dev-frog.github.io/blog/assets/Resume.pdf
+
 {:.figure}
 
 
 
 
 ![nighhawk](https://i.ibb.co/L1zjzrc/from222.png)
-
-
+[download]: https://dev-frog.github.io/blog/assets/Resume.pdf
 

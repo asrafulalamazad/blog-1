@@ -16,6 +16,7 @@ Hello, I'm a security professional known as ***froghunter*** who play CTF's and 
   
 
  > Here is my resume if you want to see..... [Resume pdf][download]
+ [download]: https://dev-frog.github.io/blog/assets/Resume.pdf
 
 {:.figure}
 
@@ -23,6 +24,6 @@ Hello, I'm a security professional known as ***froghunter*** who play CTF's and 
 
 
 ![nighhawk](https://i.ibb.co/L1zjzrc/from222.png)
-[download]: https://dev-frog.github.io/blog/assets/Resume.pdf
+
 
 

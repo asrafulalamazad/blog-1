@@ -1,6 +1,5 @@
-
-url:                   https://dev-frog.github.io
-baseurl:               'blog'
+url:                   'https://dev-frog.github.io'
+baseurl:               '/blog'
 lang:                  en
 title:                 froghunter
 description:           >

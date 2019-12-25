@@ -13,6 +13,11 @@ Hello, I'm a security professional known as ***froghunter*** who play CTF's and 
 
 
 ***Email*** : _froghunter.ctf@gmail.com_
+
+ > Here is my resume if you want to see.....
+    [Resume pdf][download]
+   
+    [download]: 
 {:.figure}
 
 
